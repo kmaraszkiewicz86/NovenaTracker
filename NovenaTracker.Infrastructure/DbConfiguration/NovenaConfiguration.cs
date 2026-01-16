@@ -23,9 +23,6 @@ public class NovenaConfiguration : IEntityTypeConfiguration<Novena>
             
         builder.Property(e => e.DaysDuration)
             .IsRequired();
-            
-        builder.Property(e => e.CreatedDate)
-            .IsRequired();
         
         // Configure relationships
         builder.HasMany(e => e.DayPrayers)
@@ -45,8 +42,7 @@ public class NovenaConfiguration : IEntityTypeConfiguration<Novena>
                 Id = 1,
                 Title = "Novena to Our Lady of Perpetual Help",
                 Description = "A nine-day prayer to Our Lady of Perpetual Help",
-                DaysDuration = 9,
-                CreatedDate = new DateTime(2024, 1, 1)
+                DaysDuration = 9
             }
         );
     }

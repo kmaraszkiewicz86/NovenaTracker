@@ -7,11 +7,10 @@ public class NovenaCompletion
 {
     public int Id { get; set; }
     public int NovenaId { get; set; }
-    public int DayNumber { get; set; }
+    public int NovenaDayPrayerId { get; set; }
     public bool IsCompleted { get; set; }
-    public DateTime? CompletedDate { get; set; }
-    public DateTime CreatedDate { get; set; }
     
-    // Navigation property
+    // Navigation properties
     public Novena Novena { get; set; } = null!;
+    public NovenaDayPrayer NovenaDayPrayer { get; set; } = null!;
 }

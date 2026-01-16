@@ -9,7 +9,6 @@ public class Novena
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public int DaysDuration { get; set; }
-    public DateTime CreatedDate { get; set; }
     
     // Navigation properties
     public ICollection<NovenaDayPrayer> DayPrayers { get; set; } = new List<NovenaDayPrayer>();

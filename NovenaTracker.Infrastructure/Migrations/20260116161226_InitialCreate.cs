@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -21,35 +20,11 @@ namespace NovenaTracker.Infrastructure.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "TEXT", maxLength: 2000, nullable: false),
-                    DaysDuration = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    DaysDuration = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Novenas", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NovenaCompletions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    NovenaId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DayNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CompletedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NovenaCompletions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_NovenaCompletions_Novenas_NovenaId",
-                        column: x => x.NovenaId,
-                        principalTable: "Novenas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,10 +49,37 @@ namespace NovenaTracker.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "NovenaCompletions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NovenaId = table.Column<int>(type: "INTEGER", nullable: false),
+                    NovenaDayPrayerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NovenaCompletions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NovenaCompletions_NovenaDayPrayers_NovenaDayPrayerId",
+                        column: x => x.NovenaDayPrayerId,
+                        principalTable: "NovenaDayPrayers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_NovenaCompletions_Novenas_NovenaId",
+                        column: x => x.NovenaId,
+                        principalTable: "Novenas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Novenas",
-                columns: new[] { "Id", "CreatedDate", "DaysDuration", "Description", "Title" },
-                values: new object[] { 1, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 9, "A nine-day prayer to Our Lady of Perpetual Help", "Novena to Our Lady of Perpetual Help" });
+                columns: new[] { "Id", "DaysDuration", "Description", "Title" },
+                values: new object[] { 1, 9, "A nine-day prayer to Our Lady of Perpetual Help", "Novena to Our Lady of Perpetual Help" });
 
             migrationBuilder.InsertData(
                 table: "NovenaDayPrayers",
@@ -90,10 +92,15 @@ namespace NovenaTracker.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_NovenaCompletions_NovenaId_DayNumber",
+                name: "IX_NovenaCompletions_NovenaDayPrayerId",
                 table: "NovenaCompletions",
-                columns: new[] { "NovenaId", "DayNumber" },
+                column: "NovenaDayPrayerId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NovenaCompletions_NovenaId",
+                table: "NovenaCompletions",
+                column: "NovenaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NovenaDayPrayers_NovenaId_DayNumber",

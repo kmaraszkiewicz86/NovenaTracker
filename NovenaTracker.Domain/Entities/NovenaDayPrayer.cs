@@ -11,6 +11,7 @@ public class NovenaDayPrayer
     public string PrayerText { get; set; } = string.Empty;
     public string? PrayerTitle { get; set; }
     
-    // Navigation property
+    // Navigation properties
     public Novena Novena { get; set; } = null!;
+    public ICollection<NovenaCompletion> Completions { get; set; } = new List<NovenaCompletion>();
 }

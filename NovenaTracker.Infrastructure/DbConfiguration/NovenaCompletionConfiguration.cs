@@ -16,17 +16,20 @@ public class NovenaCompletionConfiguration : IEntityTypeConfiguration<NovenaComp
         builder.Property(e => e.NovenaId)
             .IsRequired();
             
-        builder.Property(e => e.DayNumber)
+        builder.Property(e => e.NovenaDayPrayerId)
             .IsRequired();
             
         builder.Property(e => e.IsCompleted)
             .IsRequired();
-            
-        builder.Property(e => e.CreatedDate)
-            .IsRequired();
         
-        // Create unique index to prevent duplicate completions for same day
-        builder.HasIndex(e => new { e.NovenaId, e.DayNumber })
+        // Configure relationship to NovenaDayPrayer
+        builder.HasOne(e => e.NovenaDayPrayer)
+            .WithMany(p => p.Completions)
+            .HasForeignKey(e => e.NovenaDayPrayerId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        // Create unique index to prevent duplicate completions for same day prayer
+        builder.HasIndex(e => e.NovenaDayPrayerId)
             .IsUnique();
     }
 }

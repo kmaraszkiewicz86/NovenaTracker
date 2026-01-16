@@ -29,8 +29,7 @@ public class NovenaDbQuery
                 Id = n.Id,
                 Title = n.Title,
                 Description = n.Description,
-                DaysDuration = n.DaysDuration,
-                CreatedDate = n.CreatedDate
+                DaysDuration = n.DaysDuration
             })
             .FirstOrDefaultAsync(cancellationToken);
 
@@ -48,8 +47,7 @@ public class NovenaDbQuery
                 Id = n.Id,
                 Title = n.Title,
                 Description = n.Description,
-                DaysDuration = n.DaysDuration,
-                CreatedDate = n.CreatedDate
+                DaysDuration = n.DaysDuration
             })
             .ToListAsync(cancellationToken);
 
