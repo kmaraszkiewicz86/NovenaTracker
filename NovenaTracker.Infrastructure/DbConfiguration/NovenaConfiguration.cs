@@ -19,7 +19,7 @@ public class NovenaConfiguration : IEntityTypeConfiguration<Novena>
             
         builder.Property(e => e.Description)
             .IsRequired()
-            .HasMaxLength(2000);
+            .HasColumnType("TEXT");
             
         builder.Property(e => e.DaysDuration)
             .IsRequired();

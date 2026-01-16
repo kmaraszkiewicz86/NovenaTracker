@@ -20,7 +20,8 @@ public class NovenaDayPrayerConfiguration : IEntityTypeConfiguration<NovenaDayPr
             .IsRequired();
             
         builder.Property(e => e.PrayerText)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType("TEXT");
             
         builder.Property(e => e.PrayerTitle)
             .HasMaxLength(200);

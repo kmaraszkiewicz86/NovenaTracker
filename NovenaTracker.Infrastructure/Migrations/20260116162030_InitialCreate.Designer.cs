@@ -10,7 +10,7 @@ using NovenaTracker.Infrastructure.Data;
 namespace NovenaTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(NovenaTrackerDbContext))]
-    [Migration("20260116161226_InitialCreate")]
+    [Migration("20260116162030_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -30,7 +30,6 @@ namespace NovenaTracker.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
