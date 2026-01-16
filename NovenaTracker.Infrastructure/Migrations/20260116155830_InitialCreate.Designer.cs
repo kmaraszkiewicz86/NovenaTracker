@@ -11,7 +11,7 @@ using NovenaTracker.Infrastructure.Data;
 namespace NovenaTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(NovenaTrackerDbContext))]
-    [Migration("20260116155550_InitialCreate")]
+    [Migration("20260116155830_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

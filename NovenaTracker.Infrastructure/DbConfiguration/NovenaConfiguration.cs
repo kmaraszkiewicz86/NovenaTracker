@@ -18,6 +18,7 @@ public class NovenaConfiguration : IEntityTypeConfiguration<Novena>
             .HasMaxLength(200);
             
         builder.Property(e => e.Description)
+            .IsRequired()
             .HasMaxLength(2000);
             
         builder.Property(e => e.DaysDuration)
