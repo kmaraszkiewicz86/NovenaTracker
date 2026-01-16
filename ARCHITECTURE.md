@@ -147,8 +147,7 @@ using NovenaTracker.Configuration.Extensions;
 
 // In your Program.cs or Startup.cs
 services.ConfigureNovenaTrackerWithSqlite(
-    connectionString: "Data Source=novenatracker.db",
-    handlersAssembly: typeof(GetNovenaByIdQueryHandler).Assembly
+    connectionString: "Data Source=novenatracker.db"
 );
 ```
 
@@ -156,7 +155,7 @@ services.ConfigureNovenaTrackerWithSqlite(
 - `NovenaTrackerDbContext` (Scoped)
 - `IDbQuery` → `DbQuery` (Scoped)
 - `NovenaDbQuery` (Scoped)
-- All CQRS handlers from specified assembly
+- All CQRS handlers from ApplicationLayer assembly (automatically discovered)
 
 ## Key Design Decisions
 
