@@ -1,6 +1,7 @@
-using SimpleCqrs;
-using NovenaTracker.Infrastructure.Queries;
+using NovenaTracker.Domain.Interfaces;
+using NovenaTracker.Model.Models;
 using NovenaTracker.Model.Queries;
+using SimpleCqrs;
 
 namespace NovenaTracker.ApplicationLayer.Handlers.QueryHandlers;
 
@@ -9,9 +10,9 @@ namespace NovenaTracker.ApplicationLayer.Handlers.QueryHandlers;
 /// </summary>
 public class GetAllNovenasQueryHandler : IAsyncQueryHandler<GetAllNovenasQuery, List<NovenaDto>>
 {
-    private readonly NovenaDbQuery _novenaDbQuery;
+    private readonly INovenaDbQuery _novenaDbQuery;
 
-    public GetAllNovenasQueryHandler(NovenaDbQuery novenaDbQuery)
+    public GetAllNovenasQueryHandler(INovenaDbQuery novenaDbQuery)
     {
         _novenaDbQuery = novenaDbQuery;
     }
