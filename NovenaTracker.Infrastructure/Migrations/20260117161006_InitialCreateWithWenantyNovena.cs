@@ -7,7 +7,7 @@
 namespace NovenaTracker.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateWithWenantyNovena : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,16 +79,23 @@ namespace NovenaTracker.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Novenas",
                 columns: new[] { "Id", "DaysDuration", "Description", "Title" },
-                values: new object[] { 1, 9, "A nine-day prayer to Our Lady of Perpetual Help", "Novena to Our Lady of Perpetual Help" });
+                values: new object[] { 1, 9, "Nowenna do Wenantego Katarzyńca to 9-dniowa modlitwa (nowenna od łac. novem - dziewięć), przez którą wierni proszą o łaski za wstawiennictwem Sługi Bożego o. Wenantego, franciszkanina, często w intencjach związanych z pracą, finansami i trudnymi sprawami, a także za dusze w czyśćcu cierpiące, gdyż sam o. Wenanty był ich gorliwym orędownikiem.", "Dziewięciodniowa nowenna za wstawiennictwem Sługi Bożego o.Wenantego Katarzyńca" });
 
             migrationBuilder.InsertData(
                 table: "NovenaDayPrayers",
                 columns: new[] { "Id", "DayNumber", "NovenaId", "PrayerText", "PrayerTitle" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, "O Mother of Perpetual Help, grant that I may ever invoke your powerful name...", "Day 1 - Trust in Mary" },
-                    { 2, 2, 1, "O Mary, you are the hope of Christians, hear the prayer of a sinner who loves you tenderly...", "Day 2 - Hope in Mary" },
-                    { 3, 3, 1, "O Mother of Perpetual Help, I come to you with confidence and love...", "Day 3 - Love for Mary" }
+                    { 1, 0, 1, "Boże w Trójcy Jedyny, bądź uwielbiony za wszelkie dobra, którymi napełniłeś sługę Twego Wenantego; on przez życie według rad ewangelicznych i gorliwą posługę kapłańską w Kościele stał się przykładem dla Twoich wiernych. Wynieś, Panie, tego sługę Twego na ołtarze, abyśmy lepiej mogli Tobie służyć, mnie zaś udziel łaski, o którą pokornie proszę za jego wstawiennictwem. Przez Chrystusa Pana naszego. Amen.", "Modlitwa początkowa" },
+                    { 2, 1, 1, "[Treść modlitwy z https://wenanty.pl/nowenna/]", "Dzień 1 – Dobre życie" },
+                    { 3, 2, 1, "[Treść modlitwy z https://wenanty.pl/nowenna/]", "Dzień 2 – Łaska" },
+                    { 4, 3, 1, "[Treść modlitwy z https://wenanty.pl/nowenna/]", "Dzień 3 – Unikanie grzechów" },
+                    { 5, 4, 1, "[Treść modlitwy z https://wenanty.pl/nowenna/]", "Dzień 4 – Cierpienie" },
+                    { 6, 5, 1, "[Treść modlitwy z https://wenanty.pl/nowenna/]", "Dzień 5 – Wiara" },
+                    { 7, 6, 1, "[Treść modlitwy z https://wenanty.pl/nowenna/]", "Dzień 6 – Nadzieja" },
+                    { 8, 7, 1, "[Treść modlitwy z https://wenanty.pl/nowenna/]", "Dzień 7 – Modlitwa" },
+                    { 9, 8, 1, "[Treść modlitwy z https://wenanty.pl/nowenna/]", "Dzień 8 – Maryja" },
+                    { 10, 9, 1, "[Treść modlitwy z https://wenanty.pl/nowenna/]", "Dzień 9 – Niebo" }
                 });
 
             migrationBuilder.CreateIndex(

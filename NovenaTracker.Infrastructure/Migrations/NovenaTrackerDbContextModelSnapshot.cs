@@ -43,8 +43,8 @@ namespace NovenaTracker.Infrastructure.Migrations
                         {
                             Id = 1,
                             DaysDuration = 9,
-                            Description = "A nine-day prayer to Our Lady of Perpetual Help",
-                            Title = "Novena to Our Lady of Perpetual Help"
+                            Description = "Nowenna do Wenantego Katarzyńca to 9-dniowa modlitwa (nowenna od łac. novem - dziewięć), przez którą wierni proszą o łaski za wstawiennictwem Sługi Bożego o. Wenantego, franciszkanina, często w intencjach związanych z pracą, finansami i trudnymi sprawami, a także za dusze w czyśćcu cierpiące, gdyż sam o. Wenanty był ich gorliwym orędownikiem.",
+                            Title = "Dziewięciodniowa nowenna za wstawiennictwem Sługi Bożego o.Wenantego Katarzyńca"
                         });
                 });
 
@@ -103,26 +103,82 @@ namespace NovenaTracker.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            DayNumber = 1,
+                            DayNumber = 0,
                             NovenaId = 1,
-                            PrayerText = "O Mother of Perpetual Help, grant that I may ever invoke your powerful name...",
-                            PrayerTitle = "Day 1 - Trust in Mary"
+                            PrayerText = "Boże w Trójcy Jedyny, bądź uwielbiony za wszelkie dobra, którymi napełniłeś sługę Twego Wenantego; on przez życie według rad ewangelicznych i gorliwą posługę kapłańską w Kościele stał się przykładem dla Twoich wiernych. Wynieś, Panie, tego sługę Twego na ołtarze, abyśmy lepiej mogli Tobie służyć, mnie zaś udziel łaski, o którą pokornie proszę za jego wstawiennictwem. Przez Chrystusa Pana naszego. Amen.",
+                            PrayerTitle = "Modlitwa początkowa"
                         },
                         new
                         {
                             Id = 2,
-                            DayNumber = 2,
+                            DayNumber = 1,
                             NovenaId = 1,
-                            PrayerText = "O Mary, you are the hope of Christians, hear the prayer of a sinner who loves you tenderly...",
-                            PrayerTitle = "Day 2 - Hope in Mary"
+                            PrayerText = "[Treść modlitwy z https://wenanty.pl/nowenna/]",
+                            PrayerTitle = "Dzień 1 – Dobre życie"
                         },
                         new
                         {
                             Id = 3,
+                            DayNumber = 2,
+                            NovenaId = 1,
+                            PrayerText = "[Treść modlitwy z https://wenanty.pl/nowenna/]",
+                            PrayerTitle = "Dzień 2 – Łaska"
+                        },
+                        new
+                        {
+                            Id = 4,
                             DayNumber = 3,
                             NovenaId = 1,
-                            PrayerText = "O Mother of Perpetual Help, I come to you with confidence and love...",
-                            PrayerTitle = "Day 3 - Love for Mary"
+                            PrayerText = "[Treść modlitwy z https://wenanty.pl/nowenna/]",
+                            PrayerTitle = "Dzień 3 – Unikanie grzechów"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DayNumber = 4,
+                            NovenaId = 1,
+                            PrayerText = "[Treść modlitwy z https://wenanty.pl/nowenna/]",
+                            PrayerTitle = "Dzień 4 – Cierpienie"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DayNumber = 5,
+                            NovenaId = 1,
+                            PrayerText = "[Treść modlitwy z https://wenanty.pl/nowenna/]",
+                            PrayerTitle = "Dzień 5 – Wiara"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DayNumber = 6,
+                            NovenaId = 1,
+                            PrayerText = "[Treść modlitwy z https://wenanty.pl/nowenna/]",
+                            PrayerTitle = "Dzień 6 – Nadzieja"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DayNumber = 7,
+                            NovenaId = 1,
+                            PrayerText = "[Treść modlitwy z https://wenanty.pl/nowenna/]",
+                            PrayerTitle = "Dzień 7 – Modlitwa"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DayNumber = 8,
+                            NovenaId = 1,
+                            PrayerText = "[Treść modlitwy z https://wenanty.pl/nowenna/]",
+                            PrayerTitle = "Dzień 8 – Maryja"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DayNumber = 9,
+                            NovenaId = 1,
+                            PrayerText = "[Treść modlitwy z https://wenanty.pl/nowenna/]",
+                            PrayerTitle = "Dzień 9 – Niebo"
                         });
                 });
 
