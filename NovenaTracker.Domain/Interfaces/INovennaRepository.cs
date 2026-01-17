@@ -11,9 +11,4 @@ public interface INovennaRepository
     /// Sets the completion status for a specific day of a novena
     /// </summary>
     Task SetDayCompleteAsync(int novenaId, int novenaDayPrayerId, bool isCompleted, CancellationToken cancellationToken = default);
-    
-    /// <summary>
-    /// Gets the completion status for a specific day prayer
-    /// </summary>
-    Task<NovenaCompletion?> GetCompletionAsync(int novenaDayPrayerId, CancellationToken cancellationToken = default);
 }

@@ -50,13 +50,4 @@ public class NovennaRepository : INovennaRepository
 
         await _context.SaveChangesAsync(cancellationToken);
     }
-
-    /// <summary>
-    /// Gets the completion status for a specific day prayer
-    /// </summary>
-    public async Task<NovenaCompletion?> GetCompletionAsync(int novenaDayPrayerId, CancellationToken cancellationToken = default)
-    {
-        return await _context.NovenaCompletions
-            .FirstOrDefaultAsync(c => c.NovenaDayPrayerId == novenaDayPrayerId, cancellationToken);
-    }
 }
