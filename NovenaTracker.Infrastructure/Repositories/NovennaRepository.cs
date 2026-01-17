@@ -27,12 +27,10 @@ public class NovennaRepository : INovennaRepository
 
         if (completion != null)
         {
-            if (isCompleted)
-            {
-                // Update existing completion
-                completion.IsCompleted = true;
-            }
-            else
+            // Update existing completion status
+            completion.IsCompleted = isCompleted;
+            
+            if (!isCompleted)
             {
                 // Remove completion if unchecking
                 _context.NovenaCompletions.Remove(completion);

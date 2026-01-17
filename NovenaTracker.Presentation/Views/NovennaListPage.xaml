@@ -20,13 +20,8 @@
         <Label TextColor="LightYellow"
                FontSize="16"
                FontAttributes="Bold"
-               Margin="0,8,0,0">
-            <Label.Text>
-                <MultiBinding StringFormat="Days remaining: {0}">
-                    <Binding Path="DaysRemaining" />
-                </MultiBinding>
-            </Label.Text>
-        </Label>
+               Margin="0,8,0,0"
+               Text="{Binding DaysRemaining, StringFormat='Days remaining: {0}'}" />
 
         <Label Text="Day prayers:" 
                FontAttributes="Bold" 
@@ -45,7 +40,7 @@
                         </Border.StrokeShape>       
                         <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
                             <CheckBox Grid.Column="0" 
-                                      IsChecked="{Binding IsCompleted}"
+                                      IsChecked="{Binding IsCompleted, Mode=OneWay}"
                                       VerticalOptions="Start"
                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:NovennaListPageViewModel}}, Path=ToggleDayCompleteCommand}"
                                       CommandParameter="{Binding .}" />

@@ -59,17 +59,31 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
     {
         if (Novena == null) return;
 
+        var newCompletionStatus = !dayPrayer.IsCompleted;
+        
         var command = new SetDayCompleteCommand
         {
             NovenaId = Novena.Id,
             NovenaDayPrayerId = dayPrayer.Id,
-            IsCompleted = !dayPrayer.IsCompleted
+            IsCompleted = newCompletionStatus
         };
 
         await simpleMediator.SendAsync(command);
         
-        // Update the local state
-        dayPrayer.IsCompleted = !dayPrayer.IsCompleted;
+        // Update the local state for immediate UI feedback
+        var prayerToUpdate = DayPrayers.FirstOrDefault(p => p.Id == dayPrayer.Id);
+        if (prayerToUpdate != null)
+        {
+            prayerToUpdate.IsCompleted = newCompletionStatus;
+            
+            // Find the index and replace to trigger collection change notification
+            var index = DayPrayers.IndexOf(prayerToUpdate);
+            if (index >= 0)
+            {
+                DayPrayers.RemoveAt(index);
+                DayPrayers.Insert(index, prayerToUpdate);
+            }
+        }
         
         UpdateDaysRemaining();
     }
