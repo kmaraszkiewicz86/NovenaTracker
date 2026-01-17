@@ -4,6 +4,7 @@ using NovenaTracker.ApplicationLayer.Handlers.QueryHandlers;
 using NovenaTracker.Domain.Interfaces;
 using NovenaTracker.Infrastructure.Data;
 using NovenaTracker.Infrastructure.Queries;
+using NovenaTracker.Presentation.ViewModels;
 using SimpleCqrs;
 
 namespace NovenaTracker.Configuration.Extensions;
@@ -14,24 +15,14 @@ namespace NovenaTracker.Configuration.Extensions;
 public static class ServiceCollectionExtensions
 {    
     /// <summary>
-    /// Configures NovenaTracker services with SQLite database
+    /// Configures NovenaTracker view models
     /// </summary>
     /// <param name="services">The service collection</param>
-    /// <param name="connectionString">SQLite connection string</param>
     /// <returns>The service collection for chaining</returns>
-    public static IServiceCollection ConfigureNovenaTracke(
-        this IServiceCollection services,
-        string connectionString)
+    public static IServiceCollection ConfigureNovenaTrackerViewModels(
+        this IServiceCollection services)
     {
-        // Register DbContext with SQLite
-        services.AddDbContext<NovenaTrackerDbContext>(options =>
-            options.UseSqlite(connectionString));
-        
-        // Register NovenaDbQuery
-        services.AddScoped<INovenaDbQuery, NovenaDbQuery>();
-        
-        // Configure SimpleCqrs with handlers from ApplicationLayer
-        services.ConfigureSimpleCqrs(typeof(GetAllNovenasQueryHandler).Assembly);
+        services.AddTransient<NovennaListPageViewModel>();
         
         return services;
     }

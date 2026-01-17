@@ -1,14 +1,4 @@
-using SimpleCqrs;
-
-namespace NovenaTracker.Model.Queries;
-
-/// <summary>
-/// Query to get a novena by ID
-/// </summary>
-public class GetNovenaByIdQuery : IQuery<NovenaDto?>
-{
-    public int Id { get; set; }
-}
+namespace NovenaTracker.Model.Models;
 
 /// <summary>
 /// Data transfer object for Novena
@@ -19,4 +9,6 @@ public class NovenaDto
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public int DaysDuration { get; set; }
+
+    public List<NovenaDayPrayerDto> DayPrayers { get; set; } = [];
 }

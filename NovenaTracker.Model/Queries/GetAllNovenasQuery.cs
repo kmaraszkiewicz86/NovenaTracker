@@ -1,3 +1,4 @@
+using NovenaTracker.Model.Models;
 using SimpleCqrs;
 
 namespace NovenaTracker.Model.Queries;
