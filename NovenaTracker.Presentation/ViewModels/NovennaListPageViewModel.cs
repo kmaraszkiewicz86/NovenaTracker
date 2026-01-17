@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using NovenaTracker.Model.Commands;
 using NovenaTracker.Model.Models;
 using NovenaTracker.Model.Queries;
 using SimpleCqrs;
@@ -18,6 +20,12 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
     }
 
     public ObservableCollection<NovenaDayPrayerDto> DayPrayers { get; } = [];
+
+    public int DaysRemaining
+    {
+        get => field;
+        set => SetProperty(ref field, value);
+    }
 
     /// <summary>
     /// Loads one Novena and its DayPrayers using SimpleMediator.
@@ -39,5 +47,42 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
                 DayPrayers.Add(prayer);
             }
         }
+
+        UpdateDaysRemaining();
+    }
+
+    /// <summary>
+    /// Toggles the completion status of a day prayer
+    /// </summary>
+    [RelayCommand]
+    private async Task ToggleDayCompleteAsync(NovenaDayPrayerDto dayPrayer)
+    {
+        if (Novena == null) return;
+
+        var command = new SetDayCompleteCommand
+        {
+            NovenaId = Novena.Id,
+            NovenaDayPrayerId = dayPrayer.Id,
+            IsCompleted = !dayPrayer.IsCompleted
+        };
+
+        await simpleMediator.SendAsync(command);
+        
+        // Update the local state
+        dayPrayer.IsCompleted = !dayPrayer.IsCompleted;
+        
+        UpdateDaysRemaining();
+    }
+
+    private void UpdateDaysRemaining()
+    {
+        if (Novena == null)
+        {
+            DaysRemaining = 0;
+            return;
+        }
+
+        var completedDays = DayPrayers.Count(p => p.IsCompleted);
+        DaysRemaining = Novena.DaysDuration - completedDays;
     }
 }

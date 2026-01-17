@@ -17,6 +17,17 @@
                FontSize="14"
                TextColor="LightGray" />
 
+        <Label TextColor="LightYellow"
+               FontSize="16"
+               FontAttributes="Bold"
+               Margin="0,8,0,0">
+            <Label.Text>
+                <MultiBinding StringFormat="Days remaining: {0}">
+                    <Binding Path="DaysRemaining" />
+                </MultiBinding>
+            </Label.Text>
+        </Label>
+
         <Label Text="Day prayers:" 
                FontAttributes="Bold" 
                Margin="0,16,0,4"
@@ -32,14 +43,21 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="8" />
                         </Border.StrokeShape>       
-                        <VerticalStackLayout>
-                            <Label Text="{Binding PrayerTitle}" 
-                                   FontAttributes="Bold"
-                                   TextColor="LightGray" />
-                            <Label Text="{Binding PrayerText}" 
-                                   LineBreakMode="WordWrap"
-                                   TextColor="LightGray" />
-                        </VerticalStackLayout>
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                            <CheckBox Grid.Column="0" 
+                                      IsChecked="{Binding IsCompleted}"
+                                      VerticalOptions="Start"
+                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:NovennaListPageViewModel}}, Path=ToggleDayCompleteCommand}"
+                                      CommandParameter="{Binding .}" />
+                            <VerticalStackLayout Grid.Column="1">
+                                <Label Text="{Binding PrayerTitle}" 
+                                       FontAttributes="Bold"
+                                       TextColor="LightGray" />
+                                <Label Text="{Binding PrayerText}" 
+                                       LineBreakMode="WordWrap"
+                                       TextColor="LightGray" />
+                            </VerticalStackLayout>
+                        </Grid>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
