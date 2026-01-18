@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NovenaTracker.Domain.Entities;
 using NovenaTracker.Domain.Interfaces;
 using NovenaTracker.Infrastructure.Data;
+using System.Linq;
 
 namespace NovenaTracker.Infrastructure.Repositories;
 
@@ -47,6 +48,20 @@ public class NovennaRepository : INovennaRepository
             };
             _context.NovenaCompletions.Add(completion);
         }
+
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    /// <summary>
+    /// Sets the completion status for a specific day of a novena
+    /// </summary>
+    public async Task ClearAllSelection(int novenaId, CancellationToken cancellationToken = default)
+    {
+        var completions = await _context.NovenaCompletions
+            .Where(c => c.NovenaId == novenaId)
+            .ToListAsync(cancellationToken);
+
+        _context.NovenaCompletions.RemoveRange(completions);
 
         await _context.SaveChangesAsync(cancellationToken);
     }

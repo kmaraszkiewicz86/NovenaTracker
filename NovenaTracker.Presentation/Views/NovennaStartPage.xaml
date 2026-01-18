@@ -10,7 +10,7 @@
              BackgroundColor="Gray">
 
     <ContentPage.Behaviors>
-        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding InitializeAsync}" />
+        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding LoadCommand}" />
     </ContentPage.Behaviors>
 
     <VerticalStackLayout Padding="16" Spacing="12">

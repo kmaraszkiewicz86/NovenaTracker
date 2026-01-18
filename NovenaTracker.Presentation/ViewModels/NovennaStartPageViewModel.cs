@@ -4,6 +4,7 @@ using NovenaTracker.Model.Models;
 using NovenaTracker.Model.Queries;
 using SimpleCqrs;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace NovenaTracker.Presentation.ViewModels;
 
@@ -11,15 +12,15 @@ public partial class NovennaStartPageViewModel(ISimpleMediator simpleMediator) :
 {
     public ObservableCollection<NovenaDto> NovenaItems { get; } = [];
 
+    public ICommand LoadCommand => new Command(async () => await InitializeAsync());
+
     /// <summary>
     /// Loads novena titles for display in the list
     /// </summary>
-    [RelayCommand]
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         var novenas = await simpleMediator
-            .GetQueryAsync(new GetNovenaTitlesQuery(), cancellationToken)
-            .ConfigureAwait(false);
+            .GetQueryAsync(new GetNovenaTitlesQuery(), cancellationToken);
 
         NovenaItems.Clear();
         foreach (var novena in novenas)

@@ -5,6 +5,7 @@ using NovenaTracker.Model.Models;
 using NovenaTracker.Model.Queries;
 using SimpleCqrs;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace NovenaTracker.Presentation.ViewModels;
 
@@ -17,16 +18,16 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
     public int NovenaId
     {
         get => field;
-        set
-        {
-            if (SetProperty(ref field, value))
-            {
-                _ = LoadNovenaAsync(value);
-            }
-        }
+        set => SetProperty(ref field, value);
     }
 
     public NovenaDto? Novena
+    {
+        get => field;
+        set => SetProperty(ref field, value);
+    }
+
+    public string FirstPrayer
     {
         get => field;
         set => SetProperty(ref field, value);
@@ -40,51 +41,30 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
         set => SetProperty(ref field, value);
     }
 
-    /// <summary>
-    /// Loads a specific Novena by ID using SimpleMediator.
-    /// </summary>
-    private async Task LoadNovenaAsync(int novenaId, CancellationToken cancellationToken = default)
+    public ICommand LoadCommand => new Command(async () => await LoadNovenaAsync());
+    public ICommand ClearAllSelectionCommand => new Command(async () => await ClearAllSelection());
+
+    private async Task ClearAllSelection()
     {
-        var novena = await simpleMediator
-            .GetQueryAsync(new GetNovenaByIdQuery { Id = novenaId }, cancellationToken)
-            .ConfigureAwait(false);
-
-        Novena = novena;
-
-        DayPrayers.Clear();
-        if (Novena?.DayPrayers is { Count: > 0 } prayers)
-        {
-            foreach (var prayer in prayers)
-            {
-                DayPrayers.Add(prayer);
-            }
-        }
-
-        UpdateDaysRemaining();
+        await simpleMediator.SendCommandAsync(new ClearAllCompletedCommand { NovenaId = NovenaId });
+        await LoadNovenaAsync();
     }
 
     /// <summary>
-    /// Loads one Novena and its DayPrayers using SimpleMediator.
-    /// Call this from the page lifecycle (e.g. OnAppearing).
+    /// Loads a specific Novena by ID using SimpleMediator.
     /// </summary>
-    public async Task InitializeAsync(CancellationToken cancellationToken = default)
+    private async Task LoadNovenaAsync(CancellationToken cancellationToken = default)
     {
-        if (NovenaId > 0)
-        {
-            await LoadNovenaAsync(NovenaId, cancellationToken);
-            return;
-        }
+        var novena = await simpleMediator
+            .GetQueryAsync(new GetNovenaByIdQuery { Id = NovenaId }, cancellationToken);
 
-        var novenas = await simpleMediator
-            .GetQueryAsync(new GetAllNovenasQuery(), cancellationToken)
-            .ConfigureAwait(false);
-
-        Novena = novenas.FirstOrDefault();
+        Novena = novena;
+        FirstPrayer = Novena?.DayPrayers.FirstOrDefault()?.PrayerText ?? string.Empty;
 
         DayPrayers.Clear();
         if (Novena?.DayPrayers is { Count: > 0 } prayers)
         {
-            foreach (var prayer in prayers)
+            foreach (var prayer in prayers.Skip(1))
             {
                 DayPrayers.Add(prayer);
             }

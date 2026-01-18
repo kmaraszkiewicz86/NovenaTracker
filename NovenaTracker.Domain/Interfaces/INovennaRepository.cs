@@ -7,6 +7,8 @@ namespace NovenaTracker.Domain.Interfaces;
 /// </summary>
 public interface INovennaRepository
 {
+    Task ClearAllSelection(int novenaId, CancellationToken cancellationToken = default);
+
     /// <summary>
     /// Sets the completion status for a specific day of a novena
     /// </summary>

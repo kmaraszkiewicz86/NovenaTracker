@@ -7,15 +7,8 @@ namespace NovenaTracker.ApplicationLayer.Handlers.CommandHandlers;
 /// <summary>
 /// Handler for SetDayCompleteCommand
 /// </summary>
-public class SetDayCompleteCommandHandler : IAsyncCommandHandler<SetDayCompleteCommand, bool>
+public class SetDayCompleteCommandHandler(INovennaRepository _novennaRepository) : IAsyncCommandHandler<SetDayCompleteCommand, bool>
 {
-    private readonly INovennaRepository _novennaRepository;
-
-    public SetDayCompleteCommandHandler(INovennaRepository novennaRepository)
-    {
-        _novennaRepository = novennaRepository;
-    }
-
     public async Task<bool> HandleAsync(SetDayCompleteCommand command, CancellationToken cancellationToken)
     {
         await _novennaRepository.SetDayCompleteAsync(

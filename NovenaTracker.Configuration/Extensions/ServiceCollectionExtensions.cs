@@ -37,7 +37,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<INovennaRepository, NovennaRepository>();
         
         // Configure SimpleCqrs with handlers from ApplicationLayer
-        services.ConfigureSimpleCqrs(typeof(GetAllNovenasQueryHandler).Assembly);
+        services.ConfigureSimpleCqrs(typeof(GetNovenaTitlesQueryHandler).Assembly);
         
         return services;
     }

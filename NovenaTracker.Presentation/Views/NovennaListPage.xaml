@@ -2,60 +2,88 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:NovenaTracker.Presentation.ViewModels"
+             xmlns:behaviors="clr-namespace:Kmaraszkiewicz86.Maui.Behaviors;assembly=Kmaraszkiewicz86.Maui.Behaviors"
              x:Class="NovenaTracker.Presentation.Views.NovennaListPage"
              x:DataType="viewModels:NovennaListPageViewModel"
              Title="Novenna"
              BackgroundColor="Gray">
 
-    <VerticalStackLayout Padding="16" Spacing="12">
-        <Label Text="{Binding Novena.Title}"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Clear"
+                     Priority="0"
+                     Order="Primary"
+                     Command="{Binding ClearAllSelectionCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding LoadCommand}" />
+    </ContentPage.Behaviors>
+
+    <Grid Padding="16"
+          RowDefinitions="Auto,Auto,Auto,Auto,*"
+          RowSpacing="12">
+
+        <Label Grid.Row="0"
+               Text="{Binding Novena.Title}"
                FontSize="24"
                FontAttributes="Bold"
                TextColor="LightGray" />
 
-        <Label Text="{Binding Novena.Description}"
+        <Label Grid.Row="1"
+               Text="{Binding FirstPrayer}"
                FontSize="14"
                TextColor="LightGray" />
 
-        <Label TextColor="LightYellow"
+        <Label Grid.Row="2"
+               TextColor="LightYellow"
                FontSize="16"
                FontAttributes="Bold"
                Margin="0,8,0,0"
                Text="{Binding DaysRemaining, StringFormat='Days remaining: {0}'}" />
 
-        <Label Text="Day prayers:" 
-               FontAttributes="Bold" 
+        <Label Grid.Row="3"
+               Text="Day prayers:"
+               FontAttributes="Bold"
                Margin="0,16,0,4"
                TextColor="LightGray" />
 
-        <CollectionView ItemsSource="{Binding DayPrayers}">
+        <CollectionView Grid.Row="4"
+                        ItemsSource="{Binding DayPrayers}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Border Padding="8" Margin="0,4" 
+                    <Border Padding="8" Margin="0,4"
                             StrokeThickness="1"
                             Stroke="DarkGray"
                             BackgroundColor="DimGray">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="8" />
-                        </Border.StrokeShape>       
-                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
-                            <CheckBox Grid.Column="0" 
-                                      IsChecked="{Binding IsCompleted, Mode=OneWay}"
-                                      VerticalOptions="Start"
-                                      Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:NovennaListPageViewModel}}, Path=ToggleDayCompleteCommand}"
-                                      CommandParameter="{Binding .}" />
-                            <VerticalStackLayout Grid.Column="1">
-                                <Label Text="{Binding PrayerTitle}" 
-                                       FontAttributes="Bold"
-                                       TextColor="LightGray" />
-                                <Label Text="{Binding PrayerText}" 
-                                       LineBreakMode="WordWrap"
-                                       TextColor="LightGray" />
-                            </VerticalStackLayout>
-                        </Grid>
+                        </Border.StrokeShape>
+
+                        <StackLayout Grid.Column="1">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <CheckBox Grid.Column="0"
+                                              IsChecked="{Binding IsCompleted, Mode=OneWay}"
+                                              VerticalOptions="Start"
+                                              Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:NovennaListPageViewModel}}, Path=ToggleDayCompleteCommand}"
+                                              CommandParameter="{Binding .}" />
+
+                                <Label Grid.Column="1"
+                                           Text="{Binding PrayerTitle}"
+                                           FontAttributes="Bold"
+                                           Padding="10"
+                                           TextColor="White" />
+                            </Grid>
+
+                            <StackLayout Margin="15, 5, 5, 5">
+                                <Label Text="{Binding PrayerText}"
+                                           LineBreakMode="WordWrap"
+                                           TextColor="LightGray" />
+                            </StackLayout>
+                        </StackLayout>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </VerticalStackLayout>
+
+    </Grid>
 </ContentPage>
