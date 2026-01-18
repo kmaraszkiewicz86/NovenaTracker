@@ -5,8 +5,13 @@
              xmlns:models="clr-namespace:NovenaTracker.Model.Models;assembly=NovenaTracker.Model"
              x:Class="NovenaTracker.Presentation.Views.NovennaStartPage"
              x:DataType="viewModels:NovennaStartPageViewModel"
+             xmlns:behaviors="clr-namespace:Kmaraszkiewicz86.Maui.Behaviors;assembly=Kmaraszkiewicz86.Maui.Behaviors"
              Title="Nowenny"
              BackgroundColor="Gray">
+
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding InitializeAsync}" />
+    </ContentPage.Behaviors>
 
     <VerticalStackLayout Padding="16" Spacing="12">
         <Label Text="Wybierz nowennę"

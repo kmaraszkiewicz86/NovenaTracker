@@ -14,6 +14,7 @@ public partial class NovennaStartPageViewModel(ISimpleMediator simpleMediator) :
     /// <summary>
     /// Loads novena titles for display in the list
     /// </summary>
+    [RelayCommand]
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
         var novenas = await simpleMediator

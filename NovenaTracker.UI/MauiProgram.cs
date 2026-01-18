@@ -7,6 +7,8 @@ namespace NovenaTracker.UI
     {
         public static MauiApp CreateMauiApp()
         {
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "novena_tracker.db");
+
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
@@ -20,7 +22,7 @@ namespace NovenaTracker.UI
     		builder.Logging.AddDebug();
 #endif
 
-            builder.Services.ConfigureNovenaTracke("Data Source=novena_tracker.db")
+            builder.Services.ConfigureNovenaTracke($"Data Source={dbPath}")
                 .ConfigureNovenaTrackerViewModels();
 
             return builder.Build();

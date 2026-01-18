@@ -40,7 +40,7 @@ public class NovenaConfiguration : IEntityTypeConfiguration<Novena>
             new Novena
             {
                 Id = 1,
-                Title = "Dziewięciodniowa nowenna za wstawiennictwem Sługi Bożego o.Wenantego Katarzyńca",
+                Title = "Nowenna do Wenantego Katarzyńca",
                 Description = "Nowenna do Wenantego Katarzyńca to 9-dniowa modlitwa (nowenna od łac. novem - dziewięć), przez którą wierni proszą o łaski za wstawiennictwem Sługi Bożego o. Wenantego, franciszkanina, często w intencjach związanych z pracą, finansami i trudnymi sprawami, a także za dusze w czyśćcu cierpiące, gdyż sam o. Wenanty był ich gorliwym orędownikiem.",
                 DaysDuration = 9
             }
