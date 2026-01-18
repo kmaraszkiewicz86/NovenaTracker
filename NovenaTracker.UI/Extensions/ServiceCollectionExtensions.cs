@@ -1,11 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using NovenaTracker.ApplicationLayer.Handlers.QueryHandlers;
-using NovenaTracker.Domain.Interfaces;
-using NovenaTracker.Infrastructure.Data;
-using NovenaTracker.Infrastructure.Queries;
 using NovenaTracker.Presentation.ViewModels;
-using SimpleCqrs;
+using NovenaTracker.Presentation.Views;
 
 namespace NovenaTracker.Configuration.Extensions;
 
@@ -22,8 +17,14 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection ConfigureNovenaTrackerViewModels(
         this IServiceCollection services)
     {
+        // Register ViewModels
         services.AddTransient<NovennaListPageViewModel>();
-        
+        services.AddTransient<NovennaStartPageViewModel>();
+
+        // Register Pages
+        services.AddTransient<NovennaListPage>();
+        services.AddTransient<NovennaStartPage>();
+
         return services;
     }
 }

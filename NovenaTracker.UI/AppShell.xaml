@@ -4,11 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:NovenaTracker.Presentation.Views;assembly=NovenaTracker.Presentation"
-    Title="NovenaTracker.UI">
+    Title="NovenaTracker">
 
     <ShellContent
-        Title="Lista modlitw"
-        ContentTemplate="{DataTemplate views:NovennaListPage}"
-        Route="NovennaListPage" />
+        Title="Nowenny"
+        ContentTemplate="{DataTemplate views:NovennaStartPage}"
+        Route="NovennaStartPage" />
 
 </Shell>

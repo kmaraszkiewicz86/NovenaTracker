@@ -11,8 +11,21 @@ namespace NovenaTracker.Presentation.ViewModels;
 /// <summary>
 /// ViewModel for displaying a single Novena with its day prayers using MAUI MVVM.
 /// </summary>
+[QueryProperty(nameof(NovenaId), "novenaId")]
 public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : ObservableObject
 {
+    public int NovenaId
+    {
+        get => field;
+        set
+        {
+            if (SetProperty(ref field, value))
+            {
+                _ = LoadNovenaAsync(value);
+            }
+        }
+    }
+
     public NovenaDto? Novena
     {
         get => field;
@@ -28,11 +41,40 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
     }
 
     /// <summary>
+    /// Loads a specific Novena by ID using SimpleMediator.
+    /// </summary>
+    private async Task LoadNovenaAsync(int novenaId, CancellationToken cancellationToken = default)
+    {
+        var novena = await simpleMediator
+            .GetQueryAsync(new GetNovenaByIdQuery { Id = novenaId }, cancellationToken)
+            .ConfigureAwait(false);
+
+        Novena = novena;
+
+        DayPrayers.Clear();
+        if (Novena?.DayPrayers is { Count: > 0 } prayers)
+        {
+            foreach (var prayer in prayers)
+            {
+                DayPrayers.Add(prayer);
+            }
+        }
+
+        UpdateDaysRemaining();
+    }
+
+    /// <summary>
     /// Loads one Novena and its DayPrayers using SimpleMediator.
     /// Call this from the page lifecycle (e.g. OnAppearing).
     /// </summary>
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {
+        if (NovenaId > 0)
+        {
+            await LoadNovenaAsync(NovenaId, cancellationToken);
+            return;
+        }
+
         var novenas = await simpleMediator
             .GetQueryAsync(new GetAllNovenasQuery(), cancellationToken)
             .ConfigureAwait(false);
