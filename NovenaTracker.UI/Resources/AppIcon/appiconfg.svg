@@ -9,14 +9,14 @@
 			<rect x="-20" y="-8" width="40" height="16" rx="3" fill="rgba(0,0,0,1)"/>
 		</g>
 		
-		<!-- Rosary Circle of Beads (5 decades) -->
+		<!-- Rosary Circle of Beads (4 decades - stylized representation) -->
 		<!-- Large beads (Our Father beads) -->
 		<circle cx="0" cy="-80" r="12" fill="rgba(0,0,0,1)"/>
 		<circle cx="80" cy="0" r="12" fill="rgba(0,0,0,1)"/>
 		<circle cx="0" cy="80" r="12" fill="rgba(0,0,0,1)"/>
 		<circle cx="-80" cy="0" r="12" fill="rgba(0,0,0,1)"/>
 		
-		<!-- Small beads (Hail Mary beads) - stylized representation of decades (4 beads per group instead of traditional 10 for visual clarity) -->
+		<!-- Small beads (Hail Mary beads) - stylized with 4 beads per decade instead of traditional 10 for visual clarity -->
 		<!-- Top decade -->
 		<circle cx="-25" cy="-75" r="7" fill="rgba(0,0,0,1)"/>
 		<circle cx="-12" cy="-82" r="7" fill="rgba(0,0,0,1)"/>
