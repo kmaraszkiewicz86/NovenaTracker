@@ -19,7 +19,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>NovenaTracker.UI</ApplicationTitle>
+		<ApplicationTitle>Novena Tracker</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.novenatracker.ui</ApplicationId>
