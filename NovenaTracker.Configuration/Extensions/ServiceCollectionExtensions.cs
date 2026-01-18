@@ -27,7 +27,9 @@ public static class ServiceCollectionExtensions
         // Register DbContext with SQLite
         services.AddDbContext<NovenaTrackerDbContext>(options =>
             options.UseSqlite(connectionString));
-        
+
+        services.MigrateDatabase();
+
         // Register NovenaDbQuery
         services.AddScoped<INovenaDbQuery, NovenaDbQuery>();
         
@@ -38,5 +40,12 @@ public static class ServiceCollectionExtensions
         services.ConfigureSimpleCqrs(typeof(GetAllNovenasQueryHandler).Assembly);
         
         return services;
+    }
+
+    private static void MigrateDatabase(this IServiceCollection services)
+    {
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<NovenaTrackerDbContext>();
+        db.Database.Migrate();
     }
 }

@@ -68,7 +68,7 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
             IsCompleted = newCompletionStatus
         };
 
-        await simpleMediator.SendAsync(command);
+        await simpleMediator.SendCommandAsync(command);
         
         // Update the local state for immediate UI feedback
         var prayerToUpdate = DayPrayers.FirstOrDefault(p => p.Id == dayPrayer.Id);
