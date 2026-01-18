@@ -4,6 +4,7 @@ using NovenaTracker.ApplicationLayer.Handlers.QueryHandlers;
 using NovenaTracker.Domain.Interfaces;
 using NovenaTracker.Infrastructure.Data;
 using NovenaTracker.Infrastructure.Queries;
+using NovenaTracker.Infrastructure.Repositories;
 using SimpleCqrs;
 
 namespace NovenaTracker.Configuration.Extensions;
@@ -29,6 +30,9 @@ public static class ServiceCollectionExtensions
         
         // Register NovenaDbQuery
         services.AddScoped<INovenaDbQuery, NovenaDbQuery>();
+        
+        // Register NovennaRepository
+        services.AddScoped<INovennaRepository, NovennaRepository>();
         
         // Configure SimpleCqrs with handlers from ApplicationLayer
         services.ConfigureSimpleCqrs(typeof(GetAllNovenasQueryHandler).Assembly);
