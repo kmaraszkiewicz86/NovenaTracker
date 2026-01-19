@@ -28,6 +28,7 @@ public class NovenaDbQuery : INovenaDbQuery
                 Id = n.Id,
                 Title = n.Title
             })
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
     /// <summary>
@@ -37,8 +38,10 @@ public class NovenaDbQuery : INovenaDbQuery
     {
         Novena? novenna = await _context.Novenas
             .Include(n => n.DayPrayers)
+            .ThenInclude(p => p.Completions)
             .Include(n => n.Completions)
             .Where(n => n.Id == id)
+            .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
 
         if (novenna == null) return null;
@@ -49,7 +52,7 @@ public class NovenaDbQuery : INovenaDbQuery
             Title = novenna.Title,
             Description = novenna.Description,
             DaysDuration = novenna.DaysDuration,
-            DayPrayers = [.. novenna.DayPrayers.Where(p => !p.Completions.Any()).Select(p => new NovenaDayPrayerDto
+            DayPrayers = [.. novenna.DayPrayers.Where(p => !p.Completions.Any() && p.Completions.All(c => !c.IsCompleted)).Select(p => new NovenaDayPrayerDto
             {
                 Id = p.Id,
                 NovenaId = p.NovenaId,

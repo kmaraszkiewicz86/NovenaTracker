@@ -31,7 +31,7 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
     {
         get => field;
         set => SetProperty(ref field, value);
-    }
+    } = string.Empty;
 
     public ObservableCollection<NovenaDayPrayerDto> DayPrayers { get; } = [];
 
@@ -40,6 +40,12 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
         get => field;
         set => SetProperty(ref field, value);
     }
+
+    public string ErrorMessage
+    {
+        get => field;
+        set => SetProperty(ref field, value);
+    } = string.Empty;
 
     public ICommand LoadCommand => new Command(async () => await LoadNovenaAsync());
     public ICommand ClearAllSelectionCommand => new Command(async () => await ClearAllSelection());
@@ -79,6 +85,14 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
     [RelayCommand]
     private async Task ToggleDayCompleteAsync(NovenaDayPrayerDto dayPrayer)
     {
+        ErrorMessage = string.Empty;
+
+        if (dayPrayer == null)
+        {
+            ErrorMessage = "Dane modlitwy są niedostępne. Spróbuj ponownie.";
+            return;
+        }
+
         if (Novena == null) return;
 
         var newCompletionStatus = !dayPrayer.IsCompleted;
@@ -103,7 +117,6 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
             if (index >= 0)
             {
                 DayPrayers.RemoveAt(index);
-                DayPrayers.Insert(index, prayerToUpdate);
             }
         }
         
@@ -118,7 +131,6 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
             return;
         }
 
-        var completedDays = DayPrayers.Count(p => p.IsCompleted);
-        DaysRemaining = Novena.DaysDuration - completedDays;
+        DaysRemaining = DayPrayers.Count;
     }
 }
