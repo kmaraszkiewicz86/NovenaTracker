@@ -44,8 +44,14 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
     public string ErrorMessage
     {
         get => field;
-        set => SetProperty(ref field, value);
+        set
+        {
+            SetProperty(ref field, value);
+            OnPropertyChanged(nameof(IsErrorVisible));
+        }
     } = string.Empty;
+
+    public bool IsErrorVisible => !string.IsNullOrEmpty(ErrorMessage);
 
     public ICommand LoadCommand => new Command(async () => await LoadNovenaAsync());
     public ICommand ClearAllSelectionCommand => new Command(async () => await ClearAllSelection());

@@ -38,7 +38,7 @@
                FontSize="16"
                FontAttributes="Bold"
                Margin="0,8,0,0"
-               Text="{Binding DaysRemaining, StringFormat='Days remaining: {0}'}" />
+               Text="{Binding DaysRemaining, StringFormat='Pozostało dni: {0}'}" />
 
         <Label Grid.Row="3"
                Text="Day prayers:"
@@ -51,7 +51,7 @@
                FontSize="14"
                FontAttributes="Bold"
                Margin="0,4"
-               IsVisible="{Binding ErrorMessage, Converter={StaticResource StringIsNotNullOrEmptyConverter}}" />
+               IsVisible="{Binding IsErrorVisible}" />
 
         <CollectionView Grid.Row="5"
                         ItemsSource="{Binding DayPrayers}">
@@ -64,7 +64,7 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="12" />
                     </Border.StrokeShape>
-                    
+
                     <StackLayout Spacing="10" 
                                  HorizontalOptions="Center" 
                                  VerticalOptions="Center">
@@ -73,13 +73,13 @@
                                FontAttributes="Bold"
                                HorizontalTextAlignment="Center"
                                TextColor="White" />
-                        
+
                         <Label Text="Wszystkie dni zakończone!" 
                                FontSize="18"
                                FontAttributes="Bold"
                                HorizontalTextAlignment="Center"
                                TextColor="LightGreen" />
-                        
+
                         <Button Text="Przywróć dni nowenny" 
                                 FontSize="16"
                                 FontAttributes="Bold"
@@ -91,7 +91,7 @@
                     </StackLayout>
                 </Border>
             </CollectionView.EmptyView>
-            
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border Padding="8" Margin="0,4"
