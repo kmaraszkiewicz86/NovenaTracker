@@ -12,4 +12,5 @@ public class NovenaDayPrayerDto
     public string? PrayerTitle { get; set; }
 
     public bool IsCompleted { get; set; }
+    public bool IsFirstPrayer { get; set; }
 }

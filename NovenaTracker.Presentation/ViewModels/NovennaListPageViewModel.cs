@@ -33,7 +33,7 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
         set => SetProperty(ref field, value);
     } = string.Empty;
 
-    public ObservableCollection<NovenaDayPrayerDto> DayPrayers { get; } = [];
+    public ObservableCollection<NovenaDayPrayerViewModel> DayPrayers { get; } = [];
 
     public int DaysRemaining
     {
@@ -56,6 +56,8 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
     public ICommand LoadCommand => new Command(async () => await LoadNovenaAsync());
     public ICommand ClearAllSelectionCommand => new Command(async () => await ClearAllSelection());
 
+    public bool IsFirstPrayer(int id) => id == DayPrayers.Min(p => p.Id);
+
     private async Task ClearAllSelection()
     {
         await simpleMediator.SendCommandAsync(new ClearAllCompletedCommand { NovenaId = NovenaId });
@@ -72,13 +74,23 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
 
         Novena = novena;
         FirstPrayer = Novena?.DayPrayers.FirstOrDefault()?.PrayerText ?? string.Empty;
+        var skipFirstPrayers = Novena?.DayPrayers.Skip(1).ToList();
+        var minId = skipFirstPrayers?.Min(p => p.Id) ?? 0;
+
+        if (skipFirstPrayers is null)
+        {
+            ErrorMessage = "Dane modlitwy są niedostępne. Spróbuj ponownie.";
+            return;
+        }
 
         DayPrayers.Clear();
+
         if (Novena?.DayPrayers is { Count: > 0 } prayers)
         {
-            foreach (var prayer in prayers.Skip(1))
+            foreach (var prayer in skipFirstPrayers)
             {
-                DayPrayers.Add(prayer);
+                prayer.IsFirstPrayer = prayer.Id == minId;
+                DayPrayers.Add(NovenaDayPrayerViewModel.Convert(prayer));
             }
         }
 
@@ -89,7 +101,7 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
     /// Toggles the completion status of a day prayer
     /// </summary>
     [RelayCommand]
-    private async Task ToggleDayCompleteAsync(NovenaDayPrayerDto dayPrayer)
+    private async Task ToggleDayCompleteAsync(NovenaDayPrayerViewModel dayPrayer)
     {
         ErrorMessage = string.Empty;
 
@@ -124,6 +136,8 @@ public partial class NovennaListPageViewModel(ISimpleMediator simpleMediator) : 
             {
                 DayPrayers.RemoveAt(index);
             }
+
+            DayPrayers.FirstOrDefault()?.IsFirstPrayer = true;
         }
         
         UpdateDaysRemaining();
